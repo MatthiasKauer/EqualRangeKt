@@ -21,3 +21,6 @@ Session.vim
 .netrwhist
 *~
 
+.idea/ 
+kotlin-equal-range.iml 
+out/ 
