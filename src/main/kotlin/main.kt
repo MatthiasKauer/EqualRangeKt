@@ -13,12 +13,11 @@ fun main(args: Array<String>) {
     xs.sort()
 
     println(xs)
-    val iInsert = lowerBound(xs, 4)
+    val iInsert = lowerBound(xs, 3)
+    val iI2 = upperBound(xs, 3)
+    println("iIns: $iInsert and $iI2")
 
-    println("iIns: $iInsert")
     xs.add(iInsert, 100)
+    xs.add(iI2 + 1, 100)
     println(xs)
-
-
-
 }

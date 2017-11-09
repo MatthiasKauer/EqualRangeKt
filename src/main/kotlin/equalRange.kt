@@ -106,3 +106,32 @@ fun exponentialSearch(xs: List<Int>, x0: Int, i0: Int): Int {
 
     return 0
 }
+
+fun upperBound(xs: List<Int>, x0: Int) : Int {
+    if (xs is RandomAccess) {
+        return upperBound1(xs, x0)
+    } else {
+        throw NotImplementedError("sorry")
+    }
+}
+
+// taken from C++ STL
+fun upperBound1(xs: List<Int>, x0: Int) : Int {
+    var len = xs.size
+    var first = 0
+
+    while (len != 0) {
+        val l2: Int = len / 2
+        val m = first + l2
+        val mv = xs[m]
+
+//        if (mv.compareTo(x0) >= 0) {
+        if (x0.compareTo(mv) < 0) {
+            len = l2
+        } else {
+            first = m + 1
+            len -= l2 + 1
+        }
+    }
+    return first
+}
