@@ -135,3 +135,30 @@ fun upperBound1(xs: List<Int>, x0: Int) : Int {
     }
     return first
 }
+
+
+// taken from C++ STL
+fun equalRange1(xs: List<Int>, x0: Int) : Pair<Int, Int> {
+    var len = xs.size
+    var first = 0
+    var last = xs.size
+
+    while (len != 0) {
+        val l2 = len / 2
+        val m = first + l2
+        val mv = xs[m]
+        if (mv.compareTo(x0) < 0 ) {
+            first = m + 1
+            len -= l2 + 1
+        } else if(x0.compareTo(mv) < 0) {
+            last = m
+            len = l2
+        } else {
+            val mpl = m + 1
+            return Pair(first + lowerBound1(xs.subList(fromIndex = first, toIndex = m), x0),
+                        mpl + upperBound(xs.subList(fromIndex = mpl, toIndex = last),x0))
+        }
+    }
+    // TODO: empty range could throw or return null?
+    return Pair(first, first)
+}

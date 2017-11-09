@@ -17,6 +17,9 @@ fun main(args: Array<String>) {
     val iI2 = upperBound(xs, 3)
     println("iIns: $iInsert and $iI2")
 
+    val eqRange = equalRange1(xs, 3)
+    println("eqRange: $eqRange")
+
     xs.add(iInsert, 100)
     xs.add(iI2 + 1, 100)
     println(xs)
