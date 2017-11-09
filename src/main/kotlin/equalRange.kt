@@ -1,5 +1,32 @@
+fun lowerBound(xs: List<Int>, x0: Int) : Int {
+    if (xs is RandomAccess) {
+        return lowerBound1(xs, x0)
+    } else {
+        throw NotImplementedError("sorry")
+    }
+}
 
-fun lowerBound(xs: List<Int>, x0: Int): Int {
+// modeled after C++ STL
+fun lowerBound1(xs: List<Int>, x0: Int): Int {
+    var len = xs.size
+    var first = 0
+
+    while (len != 0) {
+        val l2: Int = len / 2
+        val m = first + l2
+        val mv = xs[m]
+
+        if (mv.compareTo(x0) < 0) {
+            first = m + 1
+            len -= l2 + 1
+        } else {
+            len = l2
+        }
+    }
+    return first
+}
+
+fun lowerBound0(xs: List<Int>, x0: Int): Int {
     val i0 = xs.binarySearch(x0)
     if (i0 < 0) return (i0 + 1) * (-1)
 
