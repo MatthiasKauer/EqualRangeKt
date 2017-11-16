@@ -1,4 +1,4 @@
-fun lowerBound(xs: List<Int>, x0: Int) : Int {
+fun <T: Comparable<T>> lowerBound(xs: List<T>, x0: T) : Int {
     if (xs is RandomAccess) {
         return lowerBound0(xs, x0)
     } else {
@@ -7,7 +7,7 @@ fun lowerBound(xs: List<Int>, x0: Int) : Int {
 }
 
 // modeled after C++ STL
-fun lowerBound0(xs: List<Int>, x0: Int): Int {
+fun <T: Comparable<T>> lowerBound0(xs: List<T>, x0: T): Int {
     var len = xs.size
     var first = 0
 
@@ -16,7 +16,7 @@ fun lowerBound0(xs: List<Int>, x0: Int): Int {
         val m = first + l2
         val mv = xs[m]
 
-        if (mv.compareTo(x0) < 0) {
+        if (mv < x0) {
             first = m + 1
             len -= l2 + 1
         } else {
@@ -26,7 +26,7 @@ fun lowerBound0(xs: List<Int>, x0: Int): Int {
     return first
 }
 
-fun upperBound(xs: List<Int>, x0: Int) : Int {
+fun <T: Comparable<T>> upperBound(xs: List<T>, x0: T) : Int {
     if (xs is RandomAccess) {
         return upperBound0(xs, x0)
     } else {
@@ -35,7 +35,7 @@ fun upperBound(xs: List<Int>, x0: Int) : Int {
 }
 
 // taken from C++ STL
-fun upperBound0(xs: List<Int>, x0: Int) : Int {
+fun <T: Comparable<T>> upperBound0(xs: List<T>, x0: T) : Int {
     var len = xs.size
     var first = 0
 
@@ -44,7 +44,7 @@ fun upperBound0(xs: List<Int>, x0: Int) : Int {
         val m = first + l2
         val mv = xs[m]
 
-        if (x0.compareTo(mv) < 0) {
+        if (x0 < mv) {
             len = l2
         } else {
             first = m + 1
@@ -54,7 +54,7 @@ fun upperBound0(xs: List<Int>, x0: Int) : Int {
     return first
 }
 
-fun equalRange(xs: List<Int>, x0: Int) : Pair<Int, Int> {
+fun <T: Comparable<T>> equalRange(xs: List<T>, x0: T) : Pair<Int, Int> {
     if (xs is RandomAccess) {
         return equalRange0(xs, x0)
     } else {
@@ -63,7 +63,7 @@ fun equalRange(xs: List<Int>, x0: Int) : Pair<Int, Int> {
 }
 
 // taken from C++ STL
-fun equalRange0(xs: List<Int>, x0: Int) : Pair<Int, Int> {
+fun <T: Comparable<T>> equalRange0(xs: List<T>, x0: T) : Pair<Int, Int> {
     var len = xs.size
     var first = 0
     var last = xs.size
@@ -72,10 +72,10 @@ fun equalRange0(xs: List<Int>, x0: Int) : Pair<Int, Int> {
         val l2 = len / 2
         val m = first + l2
         val mv = xs[m]
-        if (mv.compareTo(x0) < 0 ) {
+        if (mv < x0) {
             first = m + 1
             len -= l2 + 1
-        } else if(x0.compareTo(mv) < 0) {
+        } else if(x0 < mv) {
             last = m
             len = l2
         } else {
@@ -84,6 +84,5 @@ fun equalRange0(xs: List<Int>, x0: Int) : Pair<Int, Int> {
                         mpl + upperBound(xs.subList(fromIndex = mpl, toIndex = last),x0))
         }
     }
-    // TODO: empty range could throw or return null?
     return Pair(first, first)
 }
