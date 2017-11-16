@@ -8,7 +8,7 @@ class EqualRangeTest {
     fun <T> checkEqualRange(range: Pair<T, T>, x0: Int) {
         assertEquals(range.first, lowerBound(xs, x0))
         assertEquals(range.second, upperBound(xs, x0))
-        assertEquals(range, equalRange1(xs, x0))
+        assertEquals(range, equalRange(xs, x0))
     }
 
     @Before
