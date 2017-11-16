@@ -5,7 +5,7 @@ import org.junit.Before
 class EqualRangeTest {
     private val xs = listOf(10, 10, 10, 20, 30, 30, 30, 50, 50, 60, 80, 80)
 
-    fun <T> checkEqualRange(range: Pair<T, T>, x0: Int) {
+    fun checkEqualRange(range: Pair<Int, Int>, x0: Int) {
         assertEquals(range.first, lowerBound(xs, x0))
         assertEquals(range.second, upperBound(xs, x0))
         assertEquals(range, equalRange(xs, x0))
@@ -51,3 +51,17 @@ class EqualRangeTest {
         checkEqualRange(Pair(0, 3), 10)
     }
 }
+
+class WrappedInt(val i: Int) : Comparable<WrappedInt> {
+    override fun compareTo(other: WrappedInt) : Int {
+        return i - other.i
+    }
+}
+
+fun <T: Comparable<T>> checkEqualRange(range: Pair<Int, Int>, xs: List<T>, x0: T) : Unit
+{
+    assertEquals(range.first, lowerBound(xs, x0))
+    assertEquals(range.second, upperBound(xs, x0))
+    assertEquals(range, equalRange(xs, x0))
+}
+
