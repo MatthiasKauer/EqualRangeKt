@@ -9,6 +9,10 @@ class EqualRangeTest {
         assertEquals(range.first, lowerBound(xs, x0))
         assertEquals(range.second, upperBound(xs, x0))
         assertEquals(range, equalRange(xs, x0))
+
+        assertEquals(lowerBound(xs, x0), lowerBoundShort(xs, x0))
+        assertEquals(upperBound(xs, x0), upperBoundShort(xs, x0))
+        assertEquals(equalRange(xs, x0), equalRangeShort(xs, x0))
     }
 
     @Before
@@ -51,17 +55,3 @@ class EqualRangeTest {
         checkEqualRange(Pair(0, 3), 10)
     }
 }
-
-class WrappedInt(val i: Int) : Comparable<WrappedInt> {
-    override fun compareTo(other: WrappedInt) : Int {
-        return i - other.i
-    }
-}
-
-fun <T: Comparable<T>> checkEqualRange(range: Pair<Int, Int>, xs: List<T>, x0: T) : Unit
-{
-    assertEquals(range.first, lowerBound(xs, x0))
-    assertEquals(range.second, upperBound(xs, x0))
-    assertEquals(range, equalRange(xs, x0))
-}
-

@@ -42,9 +42,9 @@ fun <T: Comparable<T>> bound1(xs: List<T>, pred: (T) -> Boolean): Int {
     }
     return bound0(xs, func)
 }
-fun <T: Comparable<T>> lowerBound1(xs: List<T>, x0: T) = bound1(xs, {t: T -> t < x0 })
-fun <T: Comparable<T>> upperBound1(xs: List<T>, x0: T) = bound1(xs, {t: T -> t <= x0 })
-fun <T: Comparable<T>> equalRange1(xs: List<T>, x0: T) = Pair(lowerBound1(xs, x0), upperBound1(xs, x0))
+fun <T: Comparable<T>> lowerBoundShort(xs: List<T>, x0: T) = bound1(xs, { t: T -> t < x0 })
+fun <T: Comparable<T>> upperBoundShort(xs: List<T>, x0: T) = bound1(xs, { t: T -> t <= x0 })
+fun <T: Comparable<T>> equalRangeShort(xs: List<T>, x0: T) = Pair(lowerBoundShort(xs, x0), upperBoundShort(xs, x0))
 
 
 // modeled after C++ STL

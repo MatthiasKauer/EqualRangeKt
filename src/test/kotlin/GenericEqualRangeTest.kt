@@ -2,6 +2,24 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
+
+class WrappedInt(val i: Int) : Comparable<WrappedInt> {
+    override fun compareTo(other: WrappedInt) : Int {
+        return i - other.i
+    }
+}
+
+fun <T: Comparable<T>> checkEqualRange(range: Pair<Int, Int>, xs: List<T>, x0: T) : Unit
+{
+    Assert.assertEquals(range.first, lowerBound(xs, x0))
+    Assert.assertEquals(range.second, upperBound(xs, x0))
+    Assert.assertEquals(range, equalRange(xs, x0))
+
+    Assert.assertEquals(lowerBound(xs, x0), lowerBoundShort(xs, x0))
+    Assert.assertEquals(upperBound(xs, x0), upperBoundShort(xs, x0))
+    Assert.assertEquals(equalRange(xs, x0), equalRangeShort(xs, x0))
+}
+
 class GenericEqualRangeTest {
 
     private val xs = listOf(
