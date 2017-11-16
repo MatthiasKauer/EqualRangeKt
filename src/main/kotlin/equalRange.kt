@@ -95,7 +95,7 @@ data class State(var len: Int, var first: Int, var last: Int) {
     fun m(): Int { return first + l2()}
     fun l2(): Int { return len / 2}
 }
-fun <T: Comparable<T>> boundBase(xs: List<T>, x0: T, func : (State) -> Unit) : Int {
+fun <T: Comparable<T>> bound0(xs: List<T>, x0: T, func : (State) -> Unit) : Int {
     var state = State(len = xs.size, first = 0, last = xs.size);
 
     while (state.len != 0) {
@@ -103,15 +103,19 @@ fun <T: Comparable<T>> boundBase(xs: List<T>, x0: T, func : (State) -> Unit) : I
     }
     return state.first
 }
-fun <T: Comparable<T>> lowerBound1(xs: List<T>, x0: T): Int {
+fun <T: Comparable<T>> bound1(xs: List<T>, x0: T, pred: (T) -> Boolean): Int {
     val func : (State) -> Unit = { s: State ->
-        if (xs[s.m()] < x0) {
+        if (pred(xs[s.m()])) {
             s.first = s.m() + 1; s.len -= s.l2() + 1
         } else {
             s.len = s.l2()
         }
     }
-    return boundBase(xs, x0, func)
+    return bound0(xs, x0, func)
+}
+
+fun <T: Comparable<T>> lowerBound1(xs: List<T>, x0: T): Int {
+    return bound1(xs, x0, {t: T -> t < x0 })
 }
 fun <T: Comparable<T>> upperBound1(xs: List<T>, x0: T): Int {
     val func : (State) -> Unit = { s: State ->
@@ -121,5 +125,5 @@ fun <T: Comparable<T>> upperBound1(xs: List<T>, x0: T): Int {
             s.first = s.m() + 1; s.len -= s.l2() + 1
         }
     }
-    return boundBase(xs, x0, func)
+    return bound0(xs, x0, func)
 }
