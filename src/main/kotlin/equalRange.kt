@@ -6,6 +6,22 @@ fun <T: Comparable<T>> lowerBound(xs: List<T>, x0: T) : Int {
     }
 }
 
+fun <T: Comparable<T>> upperBound(xs: List<T>, x0: T) : Int {
+    if (xs is RandomAccess) {
+        return upperBound0(xs, x0)
+    } else {
+        throw NotImplementedError("sorry")
+    }
+}
+
+fun <T: Comparable<T>> equalRange(xs: List<T>, x0: T) : Pair<Int, Int> {
+    if (xs is RandomAccess) {
+        return equalRange0(xs, x0)
+    } else {
+        throw NotImplementedError("sorry")
+    }
+}
+
 
 // modeled after C++ STL
 fun <T: Comparable<T>> lowerBound0(xs: List<T>, x0: T): Int {
@@ -28,15 +44,6 @@ fun <T: Comparable<T>> lowerBound0(xs: List<T>, x0: T): Int {
 }
 
 
-fun <T: Comparable<T>> upperBound(xs: List<T>, x0: T) : Int {
-    if (xs is RandomAccess) {
-        return upperBound0(xs, x0)
-    } else {
-        throw NotImplementedError("sorry")
-    }
-}
-
-
 // taken from C++ STL
 fun <T: Comparable<T>> upperBound0(xs: List<T>, x0: T) : Int {
     var len = xs.size
@@ -55,15 +62,6 @@ fun <T: Comparable<T>> upperBound0(xs: List<T>, x0: T) : Int {
         }
     }
     return first
-}
-
-
-fun <T: Comparable<T>> equalRange(xs: List<T>, x0: T) : Pair<Int, Int> {
-    if (xs is RandomAccess) {
-        return equalRange0(xs, x0)
-    } else {
-        throw NotImplementedError("sorry")
-    }
 }
 
 
