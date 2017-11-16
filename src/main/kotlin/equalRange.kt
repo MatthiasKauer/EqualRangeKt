@@ -1,6 +1,6 @@
 fun <T: Comparable<T>> lowerBound(xs: List<T>, x0: T) : Int {
     if (xs is RandomAccess) {
-        return lowerBound0(xs, x0)
+        return lowerBound1(xs, x0)
     } else {
         throw NotImplementedError("sorry")
     }
@@ -88,4 +88,28 @@ fun <T: Comparable<T>> equalRange0(xs: List<T>, x0: T) : Pair<Int, Int> {
         }
     }
     return Pair(first, first)
+}
+
+
+data class State(var len: Int, var first: Int, var last: Int) {
+    fun m(): Int { return first + l2()}
+    fun l2(): Int { return len / 2}
+}
+fun <T: Comparable<T>> boundBase(xs: List<T>, x0: T, func : (State) -> Unit) : Int {
+    var state = State(len = xs.size, first = 0, last = xs.size);
+
+    while (state.len != 0) {
+        func(state)
+    }
+    return state.first
+}
+fun <T: Comparable<T>> lowerBound1(xs: List<T>, x0: T): Int {
+    val func : (State) -> Unit = { s: State ->
+        if (xs[s.m()] < x0) {
+            s.first = s.m() + 1; s.len -= s.l2() + 1
+        } else {
+            s.len = s.l2()
+        }
+    }
+    return boundBase(xs, x0, func)
 }
