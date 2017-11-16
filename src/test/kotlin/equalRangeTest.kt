@@ -33,30 +33,21 @@ class EqualRangeTest {
 
     @Test
     fun missingAtTail() {
-        val x0 = 95
-        assertEquals(xs.size, lowerBound(xs, x0))
-        assertEquals(xs.size, upperBound(xs, x0))
-        assertEquals(Pair(xs.size, xs.size), equalRange1(xs, x0))
+        checkEqualRange(Pair(xs.size, xs.size), 95)
     }
 
     @Test
     fun existingInMiddle() {
-        val x0 = 30
-        assertEquals(4, lowerBound(xs, x0))
-        assertEquals(7, upperBound(xs, x0))
-        assertEquals(Pair(4, 7), equalRange1(xs, x0))
+        checkEqualRange(Pair(4, 7), 30)
     }
 
     @Test
-    fun lowerBoundForExistingAtTail() {
-        val i0 = lowerBound(xs, 80)
-        assertEquals(xs.size - 2, i0)
+    fun existingAtTail() {
+        checkEqualRange(Pair(xs.size - 2, xs.size), 80)
     }
 
     @Test
-    fun lowerBoundForExistingAtHead() {
-        val i0 = lowerBound(xs, 10)
-        assertEquals(0, i0)
+    fun existingAtHead() {
+        checkEqualRange(Pair(0, 3), 10)
     }
-
 }
