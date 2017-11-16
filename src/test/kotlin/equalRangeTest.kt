@@ -1,11 +1,15 @@
-
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
 
 class EqualRangeTest {
-
     private val xs = listOf(10, 10, 10, 20, 30, 30, 30, 50, 50, 60, 80, 80)
+
+    fun <T> checkEqualRange(range: Pair<T, T>, x0: Int) {
+        assertEquals(range.first, lowerBound(xs, x0))
+        assertEquals(range.second, upperBound(xs, x0))
+        assertEquals(range, equalRange1(xs, x0))
+    }
 
     @Before
     fun setUp() {
@@ -18,27 +22,29 @@ class EqualRangeTest {
     }
 
     @Test
-    fun lowerBoundForMissingInMiddle() {
-        val i0 = lowerBound(xs, 25)
-        assertEquals(4, i0)
+    fun missingInMiddle() {
+        checkEqualRange(Pair(4,4), 25)
     }
 
     @Test
-    fun lowerBoundForMissingAtHead() {
-        val i0 = lowerBound(xs, 5)
-        assertEquals(0, i0)
+    fun missingAtHead() {
+        checkEqualRange(Pair(0, 0), 5)
     }
 
     @Test
-    fun lowerBoundForMissingAtTail() {
-        val i0 = lowerBound(xs, 95)
-        assertEquals(xs.size, i0)
+    fun missingAtTail() {
+        val x0 = 95
+        assertEquals(xs.size, lowerBound(xs, x0))
+        assertEquals(xs.size, upperBound(xs, x0))
+        assertEquals(Pair(xs.size, xs.size), equalRange1(xs, x0))
     }
 
     @Test
-    fun lowerBoundForExistingInMiddle() {
-        val i0 = lowerBound(xs, 30)
-        assertEquals(4, i0)
+    fun existingInMiddle() {
+        val x0 = 30
+        assertEquals(4, lowerBound(xs, x0))
+        assertEquals(7, upperBound(xs, x0))
+        assertEquals(Pair(4, 7), equalRange1(xs, x0))
     }
 
     @Test
