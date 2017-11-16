@@ -8,7 +8,7 @@ fun <T: Comparable<T>> lowerBound(xs: List<T>, x0: T) : Int {
 
 fun <T: Comparable<T>> upperBound(xs: List<T>, x0: T) : Int {
     if (xs is RandomAccess) {
-        return upperBound0(xs, x0)
+        return upperBound1(xs, x0)
     } else {
         throw NotImplementedError("sorry")
     }
@@ -44,7 +44,7 @@ fun <T: Comparable<T>> lowerBound0(xs: List<T>, x0: T): Int {
 }
 
 
-// taken from C++ STL
+// modeled after C++ STL
 fun <T: Comparable<T>> upperBound0(xs: List<T>, x0: T) : Int {
     var len = xs.size
     var first = 0
@@ -65,7 +65,7 @@ fun <T: Comparable<T>> upperBound0(xs: List<T>, x0: T) : Int {
 }
 
 
-// taken from C++ STL
+// modeled after C++ STL
 fun <T: Comparable<T>> equalRange0(xs: List<T>, x0: T) : Pair<Int, Int> {
     var len = xs.size
     var first = 0
@@ -109,6 +109,16 @@ fun <T: Comparable<T>> lowerBound1(xs: List<T>, x0: T): Int {
             s.first = s.m() + 1; s.len -= s.l2() + 1
         } else {
             s.len = s.l2()
+        }
+    }
+    return boundBase(xs, x0, func)
+}
+fun <T: Comparable<T>> upperBound1(xs: List<T>, x0: T): Int {
+    val func : (State) -> Unit = { s: State ->
+        if (xs[s.m()] > x0) {
+            s.len = s.l2()
+        } else {
+            s.first = s.m() + 1; s.len -= s.l2() + 1
         }
     }
     return boundBase(xs, x0, func)
