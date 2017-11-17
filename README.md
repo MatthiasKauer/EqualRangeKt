@@ -36,8 +36,16 @@ Such structures are available in Guava, for instance, but not in the standard li
 This route could be a good idea for a production project but it is infeasible in programming competitions
 because such libraries are not available there.
 
-### TODO
+### Todo
 
 - [] Support custom comparators
 - [] Upload as package
 - [] Javadocs
+
+### License
+My code is under the [MIT license](LICENSE).
+
+While writing parts of the code, I have been inspired by the implementation from the
+["libc++" C++ Standard Library](https://libcxx.llvm.org/).
+That project also allows the MIT license.
+*Please contat me if a clearer attribution or a different license is needed*.
