@@ -1,6 +1,8 @@
 equal_range for Kotlin
 ----------------------
 
+[![Build Status](https://travis-ci.org/MatthiasKauer/EqualRangeKt.svg?branch=master)](https://travis-ci.org/MatthiasKauer/EqualRangeKt)
+
 Equal_range for Kotlin implements the three binary search functions from C++ for the JVM:
 
 - [lowerBound](http://en.cppreference.com/w/cpp/algorithm/lower_bound) returns the index of the first element in a list `xs` that is *not less than* `x0`.
