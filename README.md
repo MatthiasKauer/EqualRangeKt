@@ -38,6 +38,8 @@ Such structures are available in Guava, for instance, but not in the standard li
 This route could be a good idea for a production project but it is infeasible in programming competitions
 because such libraries are not available there.
 
+Ok, the fact that I'm currently learning Kotlin and got a bit excited may also have played a part.
+
 ### Todo
 
 - [] Support custom comparators
